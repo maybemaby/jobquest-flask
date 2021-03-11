@@ -1,0 +1,61 @@
+{% extends "base2.html" %}
+
+{% block app_content %}
+    <h2>{{ posting.company }}: {{ posting.position }}</h2>
+    {% if posting.location_city and posting.location_state %}
+        <h3 style="color: #808080;">{{ posting.location_city }}, {{ posting.location_state }}</h3>
+    {% elif posting.location_city and not posting.location_state %}
+        <h3 style="color: gray;">{{ posting.location_city }}</h3>
+    {% elif posting.location_state and not posting.location_city %}
+        <h3 style="color: gray;">{{ posting.location_state }}</h3>
+    {% endif %}
+    <hr>
+    {% if posting.status %}
+        <p style="font-weight: bold; font-size: large;">
+            Application Status: <span style="color: green; font-weight: bold; font-size: large">Applied</span>
+        </p>
+    {% else %}
+        <p style="font-weight: bold; font-size: large;">
+            Application Status: <span style="color: red; font-weight: bold; font-size: large">Not Applied</span>
+        </p>
+    {% endif %}
+    {% if posting.updated %}
+        <p style="font-weight: bold; font-size: large">Date: {{ posting.updated.date() }}</p>
+    {% else %}
+        <p style="font-weight: bold; font-size: large">Date:</p>
+    {% endif %}
+    <br>
+    <h4>
+    {% if posting.resume %}
+        Resume: <a href="{{ url_for('main.file_serve', filetype='resume' , name=posting.resume.name) }}">
+            {{ posting.resume.name }}
+        </a>
+    {% else %}
+        <form action="{{ url_for('main.upload_resume', job_post_id=posting.id) }}" method="post" enctype="multipart/form-data" novalidate>
+                       Add a resume: {{ form1.hidden_tag() }}{{ form1.resume() }}<br>{{ form1.submit() }}
+        </form>
+        <br>
+    {% endif %}
+    </h4>
+    <h4>
+    {% if posting.coverletter %}
+        Cover Letter: <a href="{{ url_for('main.file_serve', filetype='cover_letter' , name=posting.coverletter.name) }}">
+            {{ posting.coverletter.name }}
+        </a>
+    {% else %}
+        <form action="{{ url_for('main.upload_cover_letter', job_post_id=posting.id) }}" method="post" enctype="multipart/form-data" novalidate>
+                        Add a cover letter: {{ form2.hidden_tag() }}{{ form2.cover_letter() }}<br>{{ form2.submit() }}
+        </form>
+    {% endif %}
+    </h4>
+    <a href="{{ url_for('main.edit_posting', job_post_id=posting.id) }}">
+        <button class="btn btn-primary">Edit Posting</button>
+    </a>
+    <form method="post" novalidate>
+    <div class="form-group">
+        <label for="notes" style="margin: 10px 0 10px 0;">Job Notes</label><br>
+        <textarea class="form-control" id="notes" name="notes" rows="10">{{ posting.notes }}</textarea>
+    </div>
+    <button class="btn btn-success" name="submit" id="submit">Save Notes</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base2.html" %}
+
+{% block app_content %}
+    <h1>EmployMe AIO</h1>
+    <h3>Organize your job applications</h3>
+    <form action="" method="post" novalidate>
+        {{ search_form.hidden_tag() }} {{ search_form.search() }} {{ search_form.category() }} {{ search_form.submit() }}
+    </form>
+    <table class="table table-hover">
+        <tr><th>Company</th><th>Position</th><th>Location</th><th>Status</th><th>Resume</th><th>Cover Letter</th><th></th></tr>
+    {% for posting in postings %}
+        <tr>
+            <td>{{ posting.company }}<br>
+                <form action="{{ url_for('main.delete_entry', job_post_id=posting.id) }}" method="post" novalidate>
+                    {{ delete_form.hidden_tag() }}
+                    <button class="btn btn-danger btn-sm" id="submit" name="submit">Delete Entry</button>
+                </form>
+            </td>
+            <td>{{ posting.position }}</td>
+            <td>
+                {% if posting.location_city or posting.location_state %}
+                {{ posting.location_city }}, {{ posting.location_state }}
+                {% endif %}
+            </td>
+            <td>{% if posting.status %}
+                <span style="color: green;">Applied</span>
+                {% else %}
+                <span style="color: red;">Not Applied</span>
+                {% endif %}
+            </td>
+            <td>{% if posting.resume %}
+                    <a href="{{ url_for('main.file_serve', filetype='resume', name=posting.resume.name) }}">
+                        {{ posting.resume.name }}
+                    </a>
+                {% else %}
+                    <form action="{{ url_for('main.upload_resume', job_post_id=posting.id) }}" method="post" enctype="multipart/form-data" novalidate>
+                       Add a resume: {{ form1.hidden_tag() }}{{ form1.resume() }}<br>
+                        {{ form1.submit() }}
+                    </form>
+                {% endif %}
+            </td>
+            <td>{% if posting.coverletter %}
+                    <a href="{{ url_for('main.file_serve', filetype='cover_letter' , name=posting.coverletter.name) }}">
+                            {{ posting.coverletter.name }}
+                    </a>
+                {% else %}
+                    <form action="{{ url_for('main.upload_cover_letter', job_post_id=posting.id) }}" method="post" enctype="multipart/form-data" novalidate>
+                        Add a cover letter: {{ form2.hidden_tag() }}{{ form2.cover_letter() }}<br>
+                        {{ form2.submit() }}
+                    </form>
+                {% endif %}
+            </td>
+            <td>
+                <a href="{{ url_for('main.posting_detail', job_post_id=posting.id) }}">See Details</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base2.html" %}
+
+{% block app_content %}
+    <form class="form" action="" method="post" role="form" novalidate>
+        {{ form.hidden_tag() }}
+        <div class="row">
+            <div class="col-md-2"><label for="company" class="col-sm-2 col-form-label">Company</label></div>
+            <div class="col-md-2"><label for="position" class="col-sm-2 col-form-label">Position</label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <input type="text" class="form-control" id="company" name="company" value="{{ posting.company }}">
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" id="position" name="position" value="{{ posting.position }}">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-4"><label for="location_city" class="col-sm-2 col-form-label">City</label></div>
+            <div class="col-md-2"><label for="location_state" class="col-sm-2 col-form-label">State</label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="location_city" name="location_city" value="{{ posting.location_city }}">
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" id="location_state" name="location_state" value="{{ posting.location_state }}">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-2">
+            <label for="status" class="form-check-label">Applied</label>
+            {% if posting.status %}
+                <input class="form-check-input" type="checkbox" id="status" name="status" checked>
+            {% else %}
+                <input class="form-check-input" type="checkbox" id="status" name="status">
+            {% endif %}
+            </div>
+        </div>
+        <br>
+        <button class="btn btn-success" name="submit" id="submit">Save changes</button>
+    </form>
+{% endblock %}
