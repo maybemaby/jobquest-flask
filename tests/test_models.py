@@ -2,6 +2,7 @@
 import datetime
 import pytest
 from app.models import JobPosting, Resume, CoverLetter
+from app import db
 
 
 @pytest.mark.usefixtures("db")
@@ -14,6 +15,7 @@ class TestJobPosting:
                              position="position",
                              location_city="location_city",
                              location_state="state")
-        posting.save()
-        retrieved = JobPosting.query.filter_by(posting.id)
+        db.session.add(posting)
+        db.session.commit()
+        retrieved = JobPosting.query.filter_by(id=posting.id).first()
         assert retrieved == posting
