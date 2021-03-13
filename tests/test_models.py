@@ -29,3 +29,12 @@ class TestJobPosting:
         db.session.commit()
         assert bool(posting.updated)
         assert isinstance(posting.updated, datetime.date)
+
+    def test_str(self):
+        posting = JobPosting(company="company",
+                             position="position",
+                             location_city="location_city",
+                             location_state="state")
+        db.session.add(posting)
+        db.session.commit()
+        assert str(posting) == "position for company in location_city, state"
