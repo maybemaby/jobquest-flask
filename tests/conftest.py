@@ -7,13 +7,14 @@ from app import db as _db
 
 
 @pytest.fixture
-def client():
+def app():
     """Create and configure a new app instance for each test."""
-    _app = create_app('tests.settings')
-    ctx = _app.test_request_context()
+    app = create_app('tests.settings')
+
+    ctx = app.test_request_context()
     ctx.push()
 
-    yield _app
+    yield app
 
     ctx.pop()
 
