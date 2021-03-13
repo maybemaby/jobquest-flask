@@ -19,3 +19,13 @@ class TestJobPosting:
         db.session.commit()
         retrieved = JobPosting.query.filter_by(id=posting.id).first()
         assert retrieved == posting
+
+    def test_updated_default(self):
+        posting = JobPosting(company="company",
+                             position="position",
+                             location_city="location_city",
+                             location_state="state")
+        db.session.add(posting)
+        db.session.commit()
+        assert bool(posting.updated)
+        assert isinstance(posting.updated, datetime.date)
