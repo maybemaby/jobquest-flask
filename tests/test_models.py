@@ -89,3 +89,24 @@ class TestResume:
         assert resume_file.readline() == "Hello world!"
         resume_file.close()
         os.remove(filepath)
+
+
+@pytest.mark.usefixtures("db")
+class TestCoverLetter:
+    """CoverLetter test cases."""
+
+    def test_get_by_id(self):
+        """Test retrieval of CoverLetter by id"""
+        cover_letter = CoverLetter(name="cover_letter_name")
+        db.session.add(cover_letter)
+        db.session.commit()
+        retrieved = CoverLetter.query.filter_by(id=cover_letter.id).first()
+        assert retrieved == cover_letter
+
+    def test_str(self):
+        """test __str__ method of CoverLetter"""
+        cover_letter = CoverLetter(name="cover_letter_name")
+        db.session.add(cover_letter)
+        db.session.commit()
+        assert str(cover_letter) == 'cover_letter_name'
+
