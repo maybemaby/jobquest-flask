@@ -60,3 +60,16 @@ class TestResume:
         db.session.add(resume)
         db.session.commit()
         assert str(resume) == 'resume_name'
+
+    def test_connect_post(self):
+        """test connect_post method"""
+        resume = Resume(name="resume_name")
+        posting = JobPosting(company="company",
+                             position="position",
+                             location_city="location_city",
+                             location_state="state")
+        db.session.add_all([resume,posting])
+        db.session.commit()
+        resume.connect_post(posting)
+        assert resume.jobposting == posting
+        assert posting.resume == resume
