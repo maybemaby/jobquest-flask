@@ -21,6 +21,7 @@ class TestJobPosting:
         assert retrieved == posting
 
     def test_updated_default(self):
+        """Test posting without specified update to default with datetime.date.today()"""
         posting = JobPosting(company="company",
                              position="position",
                              location_city="location_city",
@@ -31,6 +32,7 @@ class TestJobPosting:
         assert isinstance(posting.updated, datetime.date)
 
     def test_str(self):
+        """Test posting __str__ output"""
         posting = JobPosting(company="company",
                              position="position",
                              location_city="location_city",
@@ -38,3 +40,17 @@ class TestJobPosting:
         db.session.add(posting)
         db.session.commit()
         assert str(posting) == "position for company in location_city, state"
+
+
+@pytest.mark.usefixtures("db")
+class TestResume:
+    """Resume model tests"""
+
+    def test_get_by_id(self):
+        """Test retrieval of resume by id"""
+        resume = Resume(name="resume_name")
+        db.session.add(resume)
+        db.session.commit()
+        retrieved = Resume.query.filter_by(id=resume.id).first()
+        assert retrieved == resume
+
