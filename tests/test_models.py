@@ -110,3 +110,28 @@ class TestCoverLetter:
         db.session.commit()
         assert str(cover_letter) == 'cover_letter_name'
 
+    def test_connect_post(self):
+        """test connect_post method"""
+        cover_letter = CoverLetter(name="cover_letter_name")
+        posting = JobPosting(company="company",
+                             position="position",
+                             location_city="location_city",
+                             location_state="state")
+        db.session.add_all([cover_letter,posting])
+        db.session.commit()
+        cover_letter.connect_post(posting)
+        assert cover_letter.jobposting == posting
+        assert posting.coverletter == cover_letter
+
+    def test_accessible_filepath(self):
+        """Test to ensure filepath attribute can be used to access files"""
+        filepath = (Path.cwd() / 'tests' / 'test.txt').as_posix()
+        test_file = open(filepath, "w")
+        test_file.write("Hello world!")
+        test_file.close()
+        cover_letter = CoverLetter(name="cover_letter_name", filepath=filepath)
+        cover_letter_file = open(cover_letter.filepath, 'r')
+        assert type(cover_letter_file) == TextIOWrapper
+        assert cover_letter_file.readline() == "Hello world!"
+        cover_letter_file.close()
+        os.remove(filepath)
