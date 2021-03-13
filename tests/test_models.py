@@ -1,5 +1,8 @@
 """Model unit tests."""
 import datetime
+import os
+from io import TextIOWrapper
+from pathlib import Path
 import pytest
 from app.models import JobPosting, Resume, CoverLetter
 from app import db
@@ -73,3 +76,16 @@ class TestResume:
         resume.connect_post(posting)
         assert resume.jobposting == posting
         assert posting.resume == resume
+
+    def test_accessible_filepath(self):
+        """Test to ensure filepath attribute can be used to access files"""
+        filepath = (Path.cwd() / 'tests' / 'test.txt').as_posix()
+        test_file = open(filepath, "w")
+        test_file.write("Hello world!")
+        test_file.close()
+        resume = Resume(name="resume_name", filepath=filepath)
+        resume_file = open(resume.filepath, 'r')
+        assert type(resume_file) == TextIOWrapper
+        assert resume_file.readline() == "Hello world!"
+        resume_file.close()
+        os.remove(filepath)
