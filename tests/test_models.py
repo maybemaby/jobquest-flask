@@ -54,3 +54,9 @@ class TestResume:
         retrieved = Resume.query.filter_by(id=resume.id).first()
         assert retrieved == resume
 
+    def test_str(self):
+        """test __str__ method of Resume"""
+        resume = Resume(name="resume_name")
+        db.session.add(resume)
+        db.session.commit()
+        assert str(resume) == 'resume_name'
