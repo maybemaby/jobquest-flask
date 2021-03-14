@@ -21,9 +21,13 @@ def index():
     delete_form = DeleteForm()
     page = request.args.get('page', 1, type=int)
     if request.method == 'POST' and search_form.validate():
-        postings = search_form.filter_query()
+        postings = search_form.filter_query().paginate(page, current_app.config['POSTS_PER_PAGE'], False)
+        if postings.total == 0:
+            flash('No postings found in your search.')
         resumes = Resume.query.order_by(Resume.id)
         cover_letters = CoverLetter.query.order_by(CoverLetter.id)
+        next_url = url_for('main.index', page=postings.next_num) if postings.has_next else None
+        prev_url = url_for('main.index', page=postings.prev_num) if postings.has_prev else None
     else:
         postings = JobPosting.query.order_by(JobPosting.id).paginate(page, current_app.config['POSTS_PER_PAGE'], False)
         resumes = Resume.query.order_by(Resume.id)  # noqa
