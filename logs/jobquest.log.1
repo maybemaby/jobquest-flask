@@ -1,0 +1,107 @@
+2021-03-13 22:08:46,885 ERROR: Exception on /index [GET] [in c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\BrandonMa\Python projects\webdev\jobquest-flask\app\main\routes.py", line 25, in index
+    postings = JobPosting.query.order_by(JobPosting.id).paginate(1, current_app.config['POSTS_PER_PAGE'], False)  # noqa
+NameError: name 'current_app' is not defined
+2021-03-13 22:08:55,606 ERROR: Exception on /index [GET] [in c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\BrandonMa\Python projects\webdev\jobquest-flask\app\main\routes.py", line 25, in index
+    postings = JobPosting.query.order_by(JobPosting.id).paginate(1, current_app.config['POSTS_PER_PAGE'], False)  # noqa
+NameError: name 'current_app' is not defined
+2021-03-13 22:11:22,675 INFO: App startup [in C:\Users\BrandonMa\Python projects\webdev\jobquest-flask\app\__init__.py:38]
+2021-03-13 22:11:25,536 ERROR: Exception on /index [GET] [in c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\BrandonMa\Python projects\webdev\jobquest-flask\app\main\routes.py", line 25, in index
+    postings = JobPosting.query.order_by(JobPosting.id).paginate(page, current_app.config['POSTS_PER_PAGE'], False)
+NameError: name 'current_app' is not defined
+2021-03-13 22:11:26,375 ERROR: Exception on /index [GET] [in c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\BrandonMa\Python projects\webdev\jobquest-flask\app\main\routes.py", line 25, in index
+    postings = JobPosting.query.order_by(JobPosting.id).paginate(page, current_app.config['POSTS_PER_PAGE'], False)
+NameError: name 'current_app' is not defined
+2021-03-13 22:11:41,015 ERROR: Exception on / [GET] [in c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\BrandonMa\Python projects\webdev\jobquest-flask\app\main\routes.py", line 25, in index
+    postings = JobPosting.query.order_by(JobPosting.id).paginate(page, current_app.config['POSTS_PER_PAGE'], False)
+NameError: name 'current_app' is not defined
+2021-03-13 22:14:55,732 INFO: App startup [in C:\Users\BrandonMa\Python projects\webdev\jobquest-flask\app\__init__.py:38]
+2021-03-13 22:14:57,701 ERROR: Exception on / [GET] [in c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\users\brandonma\python projects\webdev\jobquest-flask\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\BrandonMa\Python projects\webdev\jobquest-flask\app\main\routes.py", line 25, in index
+    postings = JobPosting.query.order_by(JobPosting.id).paginate(page, app.config['POSTS_PER_PAGE'], False)
+NameError: name 'app' is not defined
+2021-03-13 22:20:12,011 INFO: App startup [in C:\Users\BrandonMa\Python projects\webdev\jobquest-flask\app\__init__.py:38]
+2021-03-13 22:20:37,336 INFO: App startup [in C:\Users\BrandonMa\Python projects\webdev\jobquest-flask\app\__init__.py:38]
+2021-03-13 22:31:13,190 INFO: App startup [in C:\Users\BrandonMa\Python projects\webdev\jobquest-flask\app\__init__.py:38]

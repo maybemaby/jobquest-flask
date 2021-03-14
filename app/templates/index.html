@@ -56,5 +56,10 @@
         </tr>
     {% endfor %}
     </table>
-
+    {% if prev_url %}
+        <a href="{{ prev_url }}">Previous Page</a>
+    {% endif %}
+    {% if next_url %}
+        <a href="{{ next_url }}">Next Page</a>
+    {% endif %}
 {% endblock %}

@@ -1,11 +1,14 @@
 import datetime
 from pathlib import Path
 from app import db
-from flask import render_template, flash, redirect, url_for, request, send_from_directory
+from flask import render_template, flash, redirect, url_for, request, send_from_directory, current_app
 from werkzeug.utils import secure_filename
-from app.main.forms import JobPostingForm, ResumeForm, CoverLetterForm, SearchForm, DeleteForm, NotesForm, EditPostingForm
+from app.main.forms import JobPostingForm, ResumeForm, CoverLetterForm, SearchForm, DeleteForm, NotesForm, \
+    EditPostingForm
 from app.models import JobPosting, Resume, CoverLetter
 from app.main import bp
+
+
 # TODO: File Validation
 
 
@@ -16,16 +19,22 @@ def index():
     form1 = ResumeForm()
     form2 = CoverLetterForm()
     delete_form = DeleteForm()
+    page = request.args.get('page', 1, type=int)
     if request.method == 'POST' and search_form.validate():
         postings = search_form.filter_query()
         resumes = Resume.query.order_by(Resume.id)
         cover_letters = CoverLetter.query.order_by(CoverLetter.id)
     else:
-        postings = JobPosting.query.order_by(JobPosting.id)  # noqa
+        postings = JobPosting.query.order_by(JobPosting.id).paginate(page, current_app.config['POSTS_PER_PAGE'], False)
         resumes = Resume.query.order_by(Resume.id)  # noqa
         cover_letters = CoverLetter.query.order_by(CoverLetter.id)  # noqa
-    return render_template('index.html', title='Home', postings=postings, resumes=resumes, cover_letters=cover_letters,
-                           form1 = form1, form2 = form2, search_form=search_form, delete_form=delete_form) # noqa
+        next_url = url_for('main.index', page=postings.next_num) if postings.has_next else None
+        prev_url = url_for('main.index', page=postings.prev_num) if postings.has_prev else None
+    return render_template('index.html', title='Home', postings=postings.items, resumes=resumes,
+                           cover_letters=cover_letters,
+                           form1=form1, form2=form2, search_form=search_form, delete_form=delete_form,
+                           next_url=next_url,
+                           prev_url=prev_url)  # noqa
 
 
 @bp.route('/new-entry', methods=['GET', 'POST'])
@@ -44,14 +53,14 @@ def new_entry():
                              location_state=location_state,
                              updated=updated, status=status)
         db.session.add(posting)
-        resume_file = request.files['resume'] # noqa
+        resume_file = request.files['resume']  # noqa
         resume_add(resume_file, posting)
         cover_letter_file = request.files['cover_letter']
         cover_letter_add(cover_letter_file, posting)
         db.session.commit()
         flash(f'New entry submitted for {form.company.data}: {form.position.data}')
         return redirect(url_for('main.index'))
-    return render_template('jobsubmit.html', title='New Entry', form=form) # noqa
+    return render_template('jobsubmit.html', title='New Entry', form=form)  # noqa
 
 
 @bp.route('/delete/<job_post_id>', methods=['POST'])
@@ -137,7 +146,7 @@ def cover_letter_add(file, job_post: JobPosting = None):
     :type job_post: JobPosting
     :return: None
     """
-    if file.filename != '': # noqa
+    if file.filename != '':  # noqa
         cover_letter_dir = Path.cwd() / 'app' / 'uploads' / 'coverletters' / secure_filename(file.filename)
         file.save(cover_letter_dir)
         cover_letter = CoverLetter(name=file.filename, filepath=cover_letter_dir.as_posix(),
